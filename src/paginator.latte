@@ -1,0 +1,27 @@
+<div class="visualPaginator" n:if="$viewed">
+    <ul class="pagination">
+        {if $paginator->isFirst()}
+            <li class="prev disabled"><span>{_'default.paginator.prev'}</span></li>
+        {else}
+            <li class="prev"><a n:class="$isAjax ? ajax"{if $noHistory} data-ajax-off="history"{/if} href="{link $handle, 'page' => $paginator->page - 1}">{_'default.paginator.prev'}</a></li>
+        {/if}
+
+        {foreach $steps as $step}
+            {if $step == $paginator->page}
+                <li class="active"><span>{$step}</span></li>
+            {else}
+                <li><a n:class="$isAjax ? ajax"{if $noHistory} data-ajax-off="history"{/if} href="{link $handle, 'page' => $step}">{$step}</a></li>
+            {/if}
+            {if $iterator->nextValue > $step + 1}
+                <li class="other"><span>{_'default.paginator.other'}</span></li>
+            {/if}
+        {/foreach}
+
+        {if $paginator->isLast()}
+            <li class="next disabled"><span>{_'default.paginator.next'}</span></li>
+        {else}
+            <li class="next"><a n:class="$isAjax ? ajax"{if $noHistory} data-ajax-off="history"{/if} href="{link $handle, 'page' => $paginator->page + 1}">{_'default.paginator.next'}</a></li>
+        {/if}
+    </ul>
+</div>
+
