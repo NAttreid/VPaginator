@@ -19,12 +19,17 @@ trait Paginator {
     /**
      * Nastavi strankovani
      * @param string $componentName
-     * @param \Nette\Database\Table\Selection $model
+     * @param $model
      */
-    public function setPaginator($componentName, \Nette\Database\Table\Selection $model) {
+    public function setPaginator($componentName, $model) {
         $paginator = $this[$componentName]->getPaginator();
-        $paginator->itemCount = $model->count();
-        $model->limit($paginator->itemsPerPage, $paginator->offset);
+        if ($model instanceof \Nette\Database\Table\Selection) {
+            $paginator->itemCount = $model->count();
+            $model->limit($paginator->itemsPerPage, $paginator->offset);
+        } elseif ($model instanceof \Nextras\Orm\Collection\ICollection) {
+            $paginator->itemCount = $model->countStored();
+            $model->limitBy($paginator->itemsPerPage, $paginator->offset);
+        }
     }
 
     /**
