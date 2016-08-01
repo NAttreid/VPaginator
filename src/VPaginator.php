@@ -26,6 +26,24 @@ class VPaginator extends Control {
     /** @var int */
     public $othersPage = 2;
 
+    /**
+     * Text na tlacitku predchozi
+     * @var string 
+     */
+    public $prev = '«';
+
+    /**
+     * Text na tlacitku dalsi
+     * @var string 
+     */
+    public $next = '»';
+
+    /**
+     * Text na tlacitku ostatni
+     * @var string 
+     */
+    public $other = '...';
+
     /** @var string */
     private $templateFile;
 
@@ -140,6 +158,9 @@ class VPaginator extends Control {
         $this->template->paginator = $paginator;
         $this->template->isAjax = $this->isAjax;
         $this->template->noHistory = $this->noHistory;
+        $this->template->prev = $this->prev;
+        $this->template->next = $this->next;
+        $this->template->other = $this->other;
         if (count($this->onShowPage) > 0) {
             $this->template->handle = 'showPage!';
         } else {

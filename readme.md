@@ -8,7 +8,14 @@ function renderDefault() {
 }
 
 function createComponentPaginator() {
-    return $this->createPaginator(10); // 10 polozek na strance, klasicke odkazy
-    return $this->createPaginator(20, 'data'); // 20 polozek na strance, ajax -> invalidace snippetu 'data'
+    $paginator = $this->createPaginator(10); // 10 polozek na strance, klasicke odkazy
+
+    $paginator =  $this->createPaginator(20, 'data'); // 20 polozek na strance, ajax -> invalidace snippetu 'data'
+
+    $paginator->prev = 'Předchozí';
+    $paginator->next = 'Další';
+    $paginator->other = '...';
+
+    return $paginator;
 }
 ```
