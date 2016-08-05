@@ -2,7 +2,7 @@
 
 namespace NAttreid\VPaginator;
 
-trait Paginator {
+trait PaginatorTrait {
 
     /**
      * Vytvori instanci paginatoru
