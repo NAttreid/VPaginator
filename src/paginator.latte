@@ -3,14 +3,16 @@
         {if $paginator->isFirst()}
             <li class="prev disabled"><span>{$prev}</span></li>
         {else}
-            <li class="prev"><a n:class="$isAjax ? ajax"{if $noHistory} data-ajax-off="history"{/if} href="{link $handle, 'page' => $paginator->page - 1}">{$prev}</a></li>
+            <li class="prev"><a n:class="$isAjax ? ajax"{if $noHistory} data-ajax-off="history"{/if}
+                        href="{link $handle, 'page' => $paginator->page - 1}">{$prev}</a></li>
         {/if}
 
         {foreach $steps as $step}
             {if $step == $paginator->page}
                 <li class="active"><span>{$step}</span></li>
             {else}
-                <li><a n:class="$isAjax ? ajax"{if $noHistory} data-ajax-off="history"{/if} href="{link $handle, 'page' => $step}">{$step}</a></li>
+                <li><a n:class="$isAjax ? ajax"{if $noHistory} data-ajax-off="history"{/if}
+                            href="{link $handle, 'page' => $step}">{$step}</a></li>
             {/if}
             {if $iterator->nextValue > $step + 1}
                 <li class="other"><span>$other</span></li>
@@ -20,7 +22,8 @@
         {if $paginator->isLast()}
             <li class="next disabled"><span>{$next}</span></li>
         {else}
-            <li class="next"><a n:class="$isAjax ? ajax"{if $noHistory} data-ajax-off="history"{/if} href="{link $handle, 'page' => $paginator->page + 1}">{$next}</a></li>
+            <li class="next"><a n:class="$isAjax ? ajax"{if $noHistory} data-ajax-off="history"{/if}
+                        href="{link $handle, 'page' => $paginator->page + 1}">{$next}</a></li>
         {/if}
     </ul>
 </div>
