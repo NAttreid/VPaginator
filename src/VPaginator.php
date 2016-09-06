@@ -19,7 +19,7 @@ class VPaginator extends Control
 	public $page = 1;
 
 	/** @var array */
-	public $onShowPage;
+	public $onShowPage = [];
 
 	/** @var int */
 	public $pageAround = 3;
@@ -102,7 +102,9 @@ class VPaginator extends Control
 	 */
 	public function handleShowPage($page)
 	{
-		$this->onShowPage($this, $page);
+		foreach ($this->onShowPage as $callback) {
+			$callback($this, $page);
+		}
 	}
 
 	/**

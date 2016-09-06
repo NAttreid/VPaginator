@@ -28,7 +28,9 @@ trait PaginatorTrait
 	 */
 	public function setPaginator($componentName, $model)
 	{
-		$paginator = $this[$componentName]->getPaginator();
+		/* @var $control VPaginator */
+		$control = $this[$componentName];
+		$paginator = $control->getPaginator();
 		if ($model instanceof Selection) {
 			$paginator->itemCount = $model->count();
 			$model->limit($paginator->itemsPerPage, $paginator->offset);
@@ -45,7 +47,9 @@ trait PaginatorTrait
 	 */
 	public function getPage($componentName)
 	{
-		$paginator = $this[$componentName]->getPaginator();
+		/* @var $control VPaginator */
+		$control = $this[$componentName];
+		$paginator = $control->getPaginator();
 		return $paginator->getPage();
 	}
 
