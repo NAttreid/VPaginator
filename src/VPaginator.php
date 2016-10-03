@@ -52,10 +52,10 @@ class VPaginator extends Control
 	private $paginator;
 
 	/** @var bool */
-	private $isAjax = FALSE;
+	private $isAjax = false;
 
 	/** @var bool */
-	private $noHistory = FALSE;
+	private $noHistory = false;
 
 	public function __construct()
 	{
@@ -70,7 +70,7 @@ class VPaginator extends Control
 	 * @param bool $value
 	 * @return static
 	 */
-	public function setAjaxRequest($value = TRUE)
+	public function setAjaxRequest($value = true)
 	{
 		$this->isAjax = $value;
 		return $this;
@@ -80,7 +80,7 @@ class VPaginator extends Control
 	 * @param bool $value
 	 * @return static
 	 */
-	public function setNoAjaxHistory($value = TRUE)
+	public function setNoAjaxHistory($value = true)
 	{
 		$this->noHistory = $value;
 		return $this;
@@ -137,9 +137,9 @@ class VPaginator extends Control
 		$page = $paginator->page;
 		if ($paginator->pageCount < 2) {
 			$steps = [$page];
-			$viewed = FALSE;
+			$viewed = false;
 		} else {
-			$viewed = TRUE;
+			$viewed = true;
 
 			$f = $first = $page - $this->pageAround;
 			$l = $last = $page + $this->pageAround;
