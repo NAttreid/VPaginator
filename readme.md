@@ -3,22 +3,27 @@
 ```php
 class SomePresenter {
 
-    use \NAttreid\VPaginator\PaginatorTrait;
-
     function renderDefault() {
         $model = $this->model->findAll();
-        $this->setPaginator('paginator', $model);
+        $this['paginator']->setPagination($model);
         $this->template->model = $model;
     }
 
     function createComponentPaginator() {
-        $paginator = $this->createPaginator(10); // 10 polozek na strance, klasicke odkazy
+        $paginator = new VPaginator(10); // 10 polozek na strance, klasicke odkazy
 
-        $paginator =  $this->createPaginator(20, 'data'); // 20 polozek na strance, ajax -> invalidace snippetu 'data'
+        $paginator =  new VPaginator(20); // 20 polozek na strance, ajax -> invalidace snippetu 'data'
 
         $paginator->prev = 'Předchozí';
         $paginator->next = 'Další';
         $paginator->other = '...';
+        
+        $paginator->setAjaxRequest(); // volani pres ajax
+        $paginator->setNoAjaxHistory(); // vypne historii pres ajax
+        
+        $paginator->onClickPage[]=function(VPaginator $paginator, $page){
+            // php kod
+        };
 
         return $paginator;
     }
