@@ -82,7 +82,7 @@ class VPaginator extends Control
 	}
 
 	/**
-	 * @param Selection $model
+	 * @param Selection|ICollection $model
 	 */
 	public function setPagination($model)
 	{
