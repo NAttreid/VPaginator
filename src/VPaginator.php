@@ -11,6 +11,8 @@ use Nextras\Orm\Collection\ICollection;
  * Vpaginator for Nette
  *
  * @property-read Paginator $paginator
+ * @property-read int $itemCount
+ * @property-read int $lastPage
  *
  * @author David Grudl
  * @author Dusan Hudak
@@ -84,14 +86,14 @@ class VPaginator extends Control
 	/**
 	 * @param Selection|ICollection $model
 	 */
-	public function setPagination($model)
+	public function setPagination(&$model)
 	{
 		if ($model instanceof Selection) {
 			$this->paginator->itemCount = $model->count();
 			$model->limit($this->paginator->itemsPerPage, $this->paginator->offset);
 		} elseif ($model instanceof ICollection) {
-			$this->paginator->itemCount = $model->countStored();
-			$model->limitBy($this->paginator->itemsPerPage, $this->paginator->offset);
+			$this->paginator->itemCount = $model->count();
+			$model = $model->limitBy($this->paginator->itemsPerPage, $this->paginator->offset);
 		}
 	}
 
@@ -101,6 +103,22 @@ class VPaginator extends Control
 	protected function getPaginator()
 	{
 		return $this->paginator;
+	}
+
+	/**
+	 * @return int
+	 */
+	protected function getItemCount()
+	{
+		return $this->paginator->itemCount;
+	}
+
+	/**
+	 * @return int
+	 */
+	protected function getLastPage()
+	{
+		return $this->paginator->lastPage;
 	}
 
 	/**
