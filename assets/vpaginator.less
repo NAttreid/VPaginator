@@ -1,0 +1,55 @@
+@default: #000;
+@active: #337ab7;
+@button: #555;
+
+.visualPaginator {
+  text-align: center;
+
+  ul.pagination {
+    li {
+      display: inline-block;
+      min-width: 35px;
+      height: 29px;
+      line-height: 29px;
+      text-align: center;
+      border: 1px solid transparent;
+
+      a, span {
+        text-decoration: none;
+        padding: 0 5px;
+        display: block;
+        color: @default;
+      }
+
+      a:hover {
+        color: @active;
+      }
+
+    }
+
+    li.other {
+      border: 1px solid transparent;
+    }
+
+    li.active {
+      border: 1px solid @active;
+      font-weight: bold;
+
+      span {
+        color: @active;
+      }
+    }
+
+    li.disabled {
+      display: none;
+    }
+    li.next, li.prev {
+      border: 1px solid @button;
+      background: inherit;
+    }
+
+    li.next:hover, li.prev:hover {
+      border: 1px solid @active;
+    }
+  }
+}

@@ -3,10 +3,14 @@
 namespace NAttreid\VPaginator;
 
 use Nette\Application\UI\Control;
+use Nette\Database\Table\Selection;
 use Nette\Utils\Paginator;
+use Nextras\Orm\Collection\ICollection;
 
 /**
  * Vpaginator for Nette
+ *
+ * @property-read Paginator $paginator
  *
  * @author David Grudl
  * @author Dusan Hudak
@@ -14,12 +18,11 @@ use Nette\Utils\Paginator;
  */
 class VPaginator extends Control
 {
-
-	/** @persistent */
+	/** @int @persistent */
 	public $page = 1;
 
-	/** @var array */
-	public $onShowPage = [];
+	/** @var callable[] */
+	public $onClickPage = [];
 
 	/** @var int */
 	public $pageAround = 3;
@@ -27,22 +30,13 @@ class VPaginator extends Control
 	/** @var int */
 	public $othersPage = 2;
 
-	/**
-	 * Text na tlacitku predchozi
-	 * @var string
-	 */
+	/** @var string */
 	public $prev = '«';
 
-	/**
-	 * Text na tlacitku dalsi
-	 * @var string
-	 */
+	/** @var string */
 	public $next = '»';
 
-	/**
-	 * Text na tlacitku ostatni
-	 * @var string
-	 */
+	/** @var string */
 	public $other = '...';
 
 	/** @var string */
@@ -57,13 +51,14 @@ class VPaginator extends Control
 	/** @var bool */
 	private $noHistory = false;
 
-	public function __construct()
+	public function __construct($itemsPerPage = 10)
 	{
 		parent::__construct();
 
-		$reflection = $this->getReflection();
-		$dir = dirname($reflection->getFileName());
-		$this->templateFile = $dir . DIRECTORY_SEPARATOR . 'paginator.latte';
+		$this->paginator = new Paginator;
+		$this->paginator->itemsPerPage = $itemsPerPage;
+
+		$this->templateFile = __DIR__ . DIRECTORY_SEPARATOR . 'paginator.latte';
 	}
 
 	/**
@@ -87,22 +82,33 @@ class VPaginator extends Control
 	}
 
 	/**
+	 * @param Selection $model
+	 */
+	public function setPagination($model)
+	{
+		if ($model instanceof Selection) {
+			$this->paginator->itemCount = $model->count();
+			$model->limit($this->paginator->itemsPerPage, $this->paginator->offset);
+		} elseif ($model instanceof ICollection) {
+			$this->paginator->itemCount = $model->countStored();
+			$model->limitBy($this->paginator->itemsPerPage, $this->paginator->offset);
+		}
+	}
+
+	/**
 	 * @return Paginator
 	 */
-	public function getPaginator()
+	protected function getPaginator()
 	{
-		if (!$this->paginator) {
-			$this->paginator = new Paginator;
-		}
 		return $this->paginator;
 	}
 
 	/**
 	 * @param int $page
 	 */
-	public function handleShowPage($page)
+	public function handleClickPage($page)
 	{
-		foreach ($this->onShowPage as $callback) {
+		foreach ($this->onClickPage as $callback) {
 			$callback($this, $page);
 		}
 	}
@@ -133,9 +139,8 @@ class VPaginator extends Control
 	 */
 	public function render()
 	{
-		$paginator = $this->getPaginator();
-		$page = $paginator->page;
-		if ($paginator->pageCount < 2) {
+		$page = $this->paginator->page;
+		if ($this->paginator->pageCount < 2) {
 			$steps = [$page];
 			$viewed = false;
 		} else {
@@ -143,19 +148,19 @@ class VPaginator extends Control
 
 			$f = $first = $page - $this->pageAround;
 			$l = $last = $page + $this->pageAround;
-			if ($f < $paginator->firstPage) {
-				$last += ($paginator->firstPage - $f);
+			if ($f < $this->paginator->firstPage) {
+				$last += ($this->paginator->firstPage - $f);
 			}
-			if ($l > $paginator->lastPage) {
-				$first -= ($l - $paginator->lastPage);
+			if ($l > $this->paginator->lastPage) {
+				$first -= ($l - $this->paginator->lastPage);
 			}
-			$arr = range(max($paginator->firstPage, $first), min($paginator->lastPage, $last));
+			$arr = range(max($this->paginator->firstPage, $first), min($this->paginator->lastPage, $last));
 
 			if ($this->othersPage > 0) {
 				$count = $this->othersPage * 2;
-				$quotient = ($paginator->pageCount - 1) / $count;
+				$quotient = ($this->paginator->pageCount - 1) / $count;
 				for ($i = 0; $i <= $count; $i++) {
-					$arr[] = round($quotient * $i) + $paginator->firstPage;
+					$arr[] = round($quotient * $i) + $this->paginator->firstPage;
 				}
 				sort($arr);
 				$steps = array_values(array_unique($arr));
@@ -166,14 +171,14 @@ class VPaginator extends Control
 
 		$this->template->viewed = $viewed;
 		$this->template->steps = $steps;
-		$this->template->paginator = $paginator;
+		$this->template->paginator = $this->paginator;
 		$this->template->isAjax = $this->isAjax;
 		$this->template->noHistory = $this->noHistory;
 		$this->template->prev = $this->prev;
 		$this->template->next = $this->next;
 		$this->template->other = $this->other;
-		if (count($this->onShowPage) > 0) {
-			$this->template->handle = 'showPage!';
+		if (count($this->onClickPage) > 0) {
+			$this->template->handle = 'clickPage!';
 		} else {
 			$this->template->handle = 'this';
 		}
@@ -190,7 +195,7 @@ class VPaginator extends Control
 	public function loadState(array $params)
 	{
 		parent::loadState($params);
-		$this->getPaginator()->page = $this->page;
+		$this->paginator->page = $this->page;
 	}
 
 }
