@@ -24,7 +24,7 @@ class VPaginator extends Control
 	public $page = 1;
 
 	/** @var callable[] */
-	public $onClickPage = [];
+	public $onClick = [];
 
 	/** @var int */
 	public $pageAround = 3;
@@ -124,9 +124,9 @@ class VPaginator extends Control
 	/**
 	 * @param int $page
 	 */
-	public function handleClickPage($page)
+	public function handleClick($page)
 	{
-		foreach ($this->onClickPage as $callback) {
+		foreach ($this->onClick as $callback) {
 			$callback($this, $page);
 		}
 	}
@@ -195,8 +195,8 @@ class VPaginator extends Control
 		$this->template->prev = $this->prev;
 		$this->template->next = $this->next;
 		$this->template->other = $this->other;
-		if (count($this->onClickPage) > 0) {
-			$this->template->handle = 'clickPage!';
+		if (count($this->onClick) > 0) {
+			$this->template->handle = 'click!';
 		} else {
 			$this->template->handle = 'this';
 		}

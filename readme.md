@@ -21,7 +21,7 @@ class SomePresenter {
         $paginator->setAjaxRequest(); // volani pres ajax
         $paginator->setNoAjaxHistory(); // vypne historii pres ajax
         
-        $paginator->onClickPage[]=function(VPaginator $paginator, $page){
+        $paginator->onClick[] = function(VPaginator $paginator, $page){
             // php kod
         };
 
