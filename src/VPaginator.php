@@ -53,7 +53,7 @@ class VPaginator extends Control
 	/** @var bool */
 	private $noHistory = false;
 
-	public function __construct($itemsPerPage = 10)
+	public function __construct(int $itemsPerPage = 10)
 	{
 		parent::__construct();
 
@@ -65,9 +65,9 @@ class VPaginator extends Control
 
 	/**
 	 * @param bool $value
-	 * @return static
+	 * @return self
 	 */
-	public function setAjaxRequest($value = true)
+	public function setAjaxRequest(bool $value = true): self
 	{
 		$this->isAjax = $value;
 		return $this;
@@ -75,9 +75,9 @@ class VPaginator extends Control
 
 	/**
 	 * @param bool $value
-	 * @return static
+	 * @return self
 	 */
-	public function setNoAjaxHistory($value = true)
+	public function setNoAjaxHistory(bool $value = true): self
 	{
 		$this->noHistory = $value;
 		return $this;
@@ -100,7 +100,7 @@ class VPaginator extends Control
 	/**
 	 * @return Paginator
 	 */
-	protected function getPaginator()
+	protected function getPaginator(): Paginator
 	{
 		return $this->paginator;
 	}
@@ -108,7 +108,7 @@ class VPaginator extends Control
 	/**
 	 * @return int
 	 */
-	protected function getItemCount()
+	protected function getItemCount(): int
 	{
 		return $this->paginator->itemCount;
 	}
@@ -116,7 +116,7 @@ class VPaginator extends Control
 	/**
 	 * @return int
 	 */
-	protected function getLastPage()
+	protected function getLastPage(): int
 	{
 		return $this->paginator->lastPage;
 	}
@@ -124,7 +124,7 @@ class VPaginator extends Control
 	/**
 	 * @param int $page
 	 */
-	public function handleClick($page)
+	public function handleClick(int $page)
 	{
 		foreach ($this->onClick as $callback) {
 			$callback($this, $page);
@@ -134,16 +134,16 @@ class VPaginator extends Control
 	/**
 	 * @return string
 	 */
-	public function getTemplateFile()
+	public function getTemplateFile(): string
 	{
 		return $this->templateFile;
 	}
 
 	/**
 	 * @param string $file
-	 * @return Vpaginator provides fluent interface
+	 * @return self
 	 */
-	public function setTemplateFile($file)
+	public function setTemplateFile(string $file): self
 	{
 		if ($file) {
 			$this->templateFile = $file;
@@ -153,7 +153,6 @@ class VPaginator extends Control
 
 	/**
 	 * Renders paginator.
-	 * @return void
 	 */
 	public function render()
 	{
@@ -207,8 +206,7 @@ class VPaginator extends Control
 
 	/**
 	 * Loads state informations.
-	 * @param  array
-	 * @return void
+	 * @param array $params
 	 */
 	public function loadState(array $params)
 	{
