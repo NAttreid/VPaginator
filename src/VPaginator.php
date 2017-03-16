@@ -126,9 +126,7 @@ class VPaginator extends Control
 	 */
 	public function handleClick(int $page)
 	{
-		foreach ($this->onClick as $callback) {
-			$callback($this, $page);
-		}
+		$this->onClick($this, $page);
 	}
 
 	/**
