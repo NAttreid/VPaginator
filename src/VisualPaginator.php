@@ -1,6 +1,6 @@
 <?php
 
-namespace NAttreid\VPaginator;
+namespace NAttreid\VisualPaginator;
 
 use Nette\Application\UI\Control;
 use Nette\Database\Table\Selection;
@@ -18,7 +18,7 @@ use Nextras\Orm\Collection\ICollection;
  * @author Dusan Hudak
  * @author Attreid <attreid@gmail.com>
  */
-class VPaginator extends Control
+class VisualPaginator extends Control
 {
 	/** @int @persistent */
 	public $page = 1;
@@ -65,7 +65,7 @@ class VPaginator extends Control
 
 	/**
 	 * @param bool $value
-	 * @return self
+	 * @return VisualPaginator
 	 */
 	public function setAjaxRequest(bool $value = true): self
 	{
@@ -75,7 +75,7 @@ class VPaginator extends Control
 
 	/**
 	 * @param bool $value
-	 * @return self
+	 * @return VisualPaginator
 	 */
 	public function setNoAjaxHistory(bool $value = true): self
 	{
@@ -139,7 +139,7 @@ class VPaginator extends Control
 
 	/**
 	 * @param string $file
-	 * @return self
+	 * @return VisualPaginator
 	 */
 	public function setTemplateFile(string $file): self
 	{

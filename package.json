@@ -1,10 +1,10 @@
 {
-  "name": "vpaginator",
+  "name": "visual-paginator",
   "description": "Visual Paginator for Nette Framework",
   "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "git@git.newtravel.cz:nattreid/vpaginator.git"
+    "url": "git@github.com:nattreid/visual-paginator.git"
   },
   "author": "Attreid",
   "license": "MIT",
