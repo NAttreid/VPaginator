@@ -3,12 +3,18 @@
   "description": "Visual Paginator for Nette Framework",
   "type": "library",
   "license": [
-    "Unlicense"
+    "MIT"
   ],
   "authors": [
     {
       "name": "Attreid",
       "email": "attreid@gmail.com"
+    },
+    {
+      "name": "David Grudl"
+    },
+    {
+      "name": "Dusan Hudak"
     }
   ],
   "require": {
