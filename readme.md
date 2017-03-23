@@ -10,9 +10,9 @@ class SomePresenter {
     }
 
     function createComponentPaginator() {
-        $paginator = new VPaginator(10); // 10 polozek na strance, klasicke odkazy
+        $paginator = new \NAttreid\VisualPaginator\VisualPaginator(10); // 10 polozek na strance, klasicke odkazy
 
-        $paginator = new VPaginator(20); // 20 polozek na strance, ajax -> invalidace snippetu 'data'
+        $paginator = new \NAttreid\VisualPaginator\VisualPaginator(20); // 20 polozek na strance, ajax -> invalidace snippetu 'data'
 
         $paginator->prev = 'Předchozí';
         $paginator->next = 'Další';
