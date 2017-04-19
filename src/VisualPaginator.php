@@ -65,7 +65,7 @@ class VisualPaginator extends Control
 
 	/**
 	 * @param bool $value
-	 * @return VisualPaginator
+	 * @return self
 	 */
 	public function setAjaxRequest(bool $value = true): self
 	{
@@ -75,7 +75,7 @@ class VisualPaginator extends Control
 
 	/**
 	 * @param bool $value
-	 * @return VisualPaginator
+	 * @return self
 	 */
 	public function setNoAjaxHistory(bool $value = true): self
 	{
@@ -85,8 +85,9 @@ class VisualPaginator extends Control
 
 	/**
 	 * @param Selection|ICollection $model
+	 * @return self
 	 */
-	public function setPagination(&$model)
+	public function setPagination(&$model): self
 	{
 		if ($model instanceof Selection) {
 			$this->paginator->itemCount = $model->count();
@@ -95,6 +96,7 @@ class VisualPaginator extends Control
 			$this->paginator->itemCount = $model->count();
 			$model = $model->limitBy($this->paginator->itemsPerPage, $this->paginator->offset);
 		}
+		return $this;
 	}
 
 	/**
@@ -124,7 +126,7 @@ class VisualPaginator extends Control
 	/**
 	 * @param int $page
 	 */
-	public function handleClick(int $page)
+	public function handleClick(int $page): void
 	{
 		$this->onClick($this, $page);
 	}
@@ -139,7 +141,7 @@ class VisualPaginator extends Control
 
 	/**
 	 * @param string $file
-	 * @return VisualPaginator
+	 * @return self
 	 */
 	public function setTemplateFile(string $file): self
 	{
@@ -152,7 +154,7 @@ class VisualPaginator extends Control
 	/**
 	 * Renders paginator.
 	 */
-	public function render()
+	public function render(): void
 	{
 		$page = $this->paginator->page;
 		if ($this->paginator->pageCount < 2) {
@@ -206,7 +208,7 @@ class VisualPaginator extends Control
 	 * Loads state informations.
 	 * @param array $params
 	 */
-	public function loadState(array $params)
+	public function loadState(array $params): void
 	{
 		parent::loadState($params);
 		$this->paginator->page = $this->page;
