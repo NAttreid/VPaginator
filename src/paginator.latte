@@ -15,7 +15,7 @@
                             href="{link $handle, 'page' => $step}">{$step}</a></li>
             {/if}
             {if $iterator->nextValue > $step + 1}
-                <li class="other"><span>$other</span></li>
+                <li class="other"><span>{$other}</span></li>
             {/if}
         {/foreach}
 
