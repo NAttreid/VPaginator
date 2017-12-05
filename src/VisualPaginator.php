@@ -2,6 +2,7 @@
 
 namespace NAttreid\VisualPaginator;
 
+use Nette\Application\BadRequestException;
 use Nette\Application\UI\Control;
 use Nette\Database\Table\Selection;
 use Nette\Utils\Paginator;
@@ -207,6 +208,7 @@ class VisualPaginator extends Control
 	/**
 	 * Loads state informations.
 	 * @param array $params
+	 * @throws BadRequestException
 	 */
 	public function loadState(array $params): void
 	{
