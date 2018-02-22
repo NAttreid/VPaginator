@@ -26,7 +26,7 @@
     "nette/tester": "~1.7",
     "nette/database": "~2.4",
     "tracy/tracy": "~2.4",
-    "nextras/orm": "~3.0-rc2"
+    "nextras/orm": "~3.0"
   },
   "autoload": {
     "classmap": [
