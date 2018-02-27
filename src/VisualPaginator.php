@@ -14,6 +14,7 @@ use Nextras\Orm\Collection\ICollection;
  * @property-read Paginator $paginator
  * @property-read int $itemCount
  * @property-read int $lastPage
+ * @property string $templateFile
  *
  * @author David Grudl
  * @author Dusan Hudak
@@ -72,6 +73,11 @@ class VisualPaginator extends Control
 	{
 		$this->isAjax = $value;
 		return $this;
+	}
+
+	public function useBootstrap(): void
+	{
+		$this->templateFile = __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.latte';
 	}
 
 	/**
@@ -135,21 +141,17 @@ class VisualPaginator extends Control
 	/**
 	 * @return string
 	 */
-	public function getTemplateFile(): string
+	protected function getTemplateFile(): string
 	{
 		return $this->templateFile;
 	}
 
 	/**
 	 * @param string $file
-	 * @return self
 	 */
-	public function setTemplateFile(string $file): self
+	protected function setTemplateFile(string $file): void
 	{
-		if ($file) {
-			$this->templateFile = $file;
-		}
-		return $this;
+		$this->templateFile = $file;
 	}
 
 	/**
@@ -201,7 +203,7 @@ class VisualPaginator extends Control
 			$this->template->handle = 'this';
 		}
 
-		$this->template->setFile($this->getTemplateFile());
+		$this->template->setFile($this->templateFile);
 		$this->template->render();
 	}
 

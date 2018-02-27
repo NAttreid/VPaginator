@@ -1,0 +1,28 @@
+<div class="visualPaginator" n:if="$viewed">
+    <a n:class="btn, btn-sm, btn-default, $paginator->isFirst() ? disabled, $isAjax ? ajax"
+            {if $noHistory}data-ajax-off="history"{/if}
+            {if !$paginator->isFirst()}href="{link $handle, 'page' => $paginator->page - 1}"{/if}>
+        <i class="glyphicon glyphicon-arrow-left"></i>
+        {$prev}
+    </a>
+
+    {foreach $steps as $step}
+        <a n:class="btn, btn-sm, $step == $paginator->page ? btn-primary : btn-default, $step == $paginator->page ? active, $isAjax ? ajax"
+                {if $noHistory} data-ajax-off="history"{/if}
+                {if $step != $paginator->page}href="{link $handle, 'page' => $step}"{/if}>
+            {$step}
+        </a>
+
+        {if $iterator->nextValue > $step + 1}
+            <span>{$other}</span>
+        {/if}
+    {/foreach}
+
+    <a n:class="btn, btn-sm, btn-default, $paginator->isLast() ? disabled, $isAjax ? ajax"
+            {if $noHistory}data-ajax-off="history"{/if}
+            {if !$paginator->isLast()}href="{link $handle, 'page' => $paginator->page + 1}"{/if}>
+        <i class="glyphicon glyphicon-arrow-right"></i>
+        {$next}
+    </a>
+</div>
+
