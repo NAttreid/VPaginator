@@ -12,8 +12,8 @@ use Nextras\Orm\Collection\ICollection;
  * Vpaginator for Nette
  *
  * @property-read Paginator $paginator
- * @property-read int $itemCount
- * @property-read int $lastPage
+ * @property-read int|null $itemCount
+ * @property-read int|null $lastPage
  * @property string $templateFile
  *
  * @author David Grudl
@@ -117,7 +117,7 @@ class VisualPaginator extends Control
 	/**
 	 * @return int
 	 */
-	protected function getItemCount(): int
+	protected function getItemCount(): ?int
 	{
 		return $this->paginator->itemCount;
 	}
@@ -125,7 +125,7 @@ class VisualPaginator extends Control
 	/**
 	 * @return int
 	 */
-	protected function getLastPage(): int
+	protected function getLastPage(): ?int
 	{
 		return $this->paginator->lastPage;
 	}
