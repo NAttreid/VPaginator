@@ -197,7 +197,7 @@ class VisualPaginator extends Control
 		$this->template->prev = $this->prev;
 		$this->template->next = $this->next;
 		$this->template->other = $this->other;
-		if (count($this->onClick) > 0) {
+		if (count($this->onClick ?? []) > 0) {
 			$this->template->handle = 'click!';
 		} else {
 			$this->template->handle = 'this';
