@@ -14,7 +14,7 @@ gulp.task('less', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(path + 'vpaginator.less', ['less']);
+    gulp.watch(path + 'vpaginator.less', gulp.series('less'));
 });
 
-gulp.task('default', ['less', 'watch']);
+gulp.task('default', gulp.series('less', 'watch'));
